@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>טבלת הצעות מחיר - פארק היורה</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        
+        .pricing-table th {
+            background-color: #34495e;
+            color: white;
+            text-align: right;
+            padding: 12px 15px;
+        }
+        
+        .pricing-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: right;
+        }
+        
+        .pricing-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .pricing-table tr:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .price {
+            font-weight: bold;
+            color: #2980b9;
+        }
+        
+        .highlight {
+            background-color: #e8f4fd !important;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo img {
+            height: 60px;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .recommendation {
+            background-color: #e8f8f5;
+            border-left: 4px solid #1abc9c;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .table-header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 4px 4px 0 0;
+            margin-bottom: 0;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .primary {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .primary:hover {
+            background-color: #2980b9;
+        }
+        
+        .secondary {
+            background-color: #95a5a6;
+            color: white;
+        }
+        
+        .secondary:hover {
+            background-color: #7f8c8d;
+        }
+        
+        .total-row {
+            background-color: #eaf4fe !important;
+            font-weight: bold;
+        }
+        
+        .location-dome {
+            background-color: #ffe6e6;
+        }
+        
+        .location-arrow {
+            background-color: #e6f7ff;
+        }
+        
+        @media (max-width: 768px) {
+            .pricing-table {
+                font-size: 14px;
+            }
+            
+            .pricing-table th, .pricing-table td {
+                padding: 8px 10px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>טבלת הצעות מחיר - טכנודע פארק היורה</h1>
+        
+        <div class="section">
+            <h2 class="table-header">טבלה השוואתית בין ההצעות</h2>
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>פרטי ההצעה</th>
+                        <th>אמילי - כיפה גאודזית</th>
+                        <th>אמילי - חדר חץ</th>
+                        <th>שניר - חדר חץ</th>
+                        <th>מור - חדר חץ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>מיקום ההתכנסות</td>
+                        <td class="location-dome">בכניסה לפארק - כיפה גאודזית</td>
+                        <td class="location-arrow">בכניסה לפארק - חדר חץ</td>
+                        <td class="location-arrow">בכניסה למרכז - חדר חץ</td>
+                        <td class="location-arrow">בכניסה למרכז - חדר חץ</td>
+                    </tr>
+                    <tr>
+                        <td>פתרון הקרנה</td>
+                        <td>מקרן אחד עוצמתי או 3 מקרנים</td>
+                        <td>מערכת הקרנה היקפית לחלל</td>
+                        <td>מסך לד 6 על 1.8 גובה</td>
+                        <td>מקרן לייזר של חברת EIKI</td>
+                    </tr>
+                    <tr>
+                        <td>ציוד הגברה</td>
+                        <td>ציוד הגברה וסאונד סראונד</td>
+                        <td>ציוד הגברה וסאונד סראונד</td>
+                        <td>מקרן קול JBL כמו במעבדות 3 ו-4</td>
+                        <td>בידורית PROTEC</td>
+                    </tr>
+                    <tr>
+                        <td>מערכת שליטה</td>
+                        <td>מערכת שליטה, ניגון וסנכרון</td>
+                        <td>מערכת שליטה, ניגון וסנכרון</td>
+                        <td>מחשב נייח איכותי</td>
+                        <td>מערכת ניגון ובקרה</td>
+                    </tr>
+                    <tr>
+                        <td>הפקת תוכן</td>
+                        <td>סרט תלת מימדי - עד 4 דקות (כולל סאונד, אנימציה וקריינות)</td>
+                        <td>תוכן 4 קירות עוטפים - עד 4 דקות (כולל סאונד, אנימציה וקריינות)</td>
+                        <td>20-25K לדקה</td>
+                        <td>20-25K לדקה</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td>מחיר סופי</td>
+                        <td>₪950,000 - ₪1,200,000</td>
+                        <td>₪900,000 - ₪1,100,000</td>
+                        <td>₪250,000 כולל סרטון 4 דקות</td>
+                        <td>₪105,000 כולל סרטון 4 דקות</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="recommendation">
+            <h3>הערות:</h3>
+            <ul>
+                <li>הצעות המחיר של אמילי כוללות מערכת מלאה עם הפקת תוכן, לכן המחיר גבוה יותר.</li>
+                <li>ההתקנה כלולה במחירים של כל ההצעות.</li>
+                <li>עלות הפקת תוכן היא 20-25 אלף ₪ לדקה.</li>
+            </ul>
+        </div>
+        
+        <div class="section">
+            <h2 class="table-header">תמונות להמחשה</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin: 20px 0;">
+                <div style="text-align: center; flex-basis: 45%; margin-bottom: 20px;">
+                    <h3>• אמילי - כיפה גאודזית</h3>
+                    <a href="#" onclick="openImageModal('emilyC.jpg'); return false;">
+                        <img src="/api/placeholder/400/300" alt="אמילי - כיפה גאודזית" style="max-width: 100%; height: auto; border-radius: 8px; border: 1px solid #ddd; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                    </a>
+                    <p style="margin-top: 5px; color: #666; font-size: 14px;">לחץ על התמונה להגדלה</p>
+                </div>
+                <div style="text-align: center; flex-basis: 45%; margin-bottom: 20px;">
+                    <h3>• אמילי - חדר חץ</h3>
+                    <a href="#" onclick="openImageModal('emilyH.jpg'); return false;">
+                        <img src="/api/placeholder/400/300" alt="אמילי - חדר חץ" style="max-width: 100%; height: auto; border-radius: 8px; border: 1px solid #ddd; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                    </a>
+                    <p style="margin-top: 5px; color: #666; font-size: 14px;">לחץ על התמונה להגדלה</p>
+                </div>
+                <div style="text-align: center; flex-basis: 45%; margin-bottom: 20px;">
+                    <h3>• שניר - חדר חץ</h3>
+                    <a href="#" onclick="openImageModal('snir.jpg'); return false;">
+                        <img src="/api/placeholder/400/300" alt="שניר - חדר חץ" style="max-width: 100%; height: auto; border-radius: 8px; border: 1px solid #ddd; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                    </a>
+                    <p style="margin-top: 5px; color: #666; font-size: 14px;">לחץ על התמונה להגדלה</p>
+                </div>
+                <div style="text-align: center; flex-basis: 45%; margin-bottom: 20px;">
+                    <h3>• מור - חדר חץ</h3>
+                    <a href="#" onclick="openImageModal('mor.jpg'); return false;">
+                        <img src="/api/placeholder/400/300" alt="מור - חדר חץ" style="max-width: 100%; height: auto; border-radius: 8px; border: 1px solid #ddd; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                    </a>
+                    <p style="margin-top: 5px; color: #666; font-size: 14px;">לחץ על התמונה להגדלה</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="button-group">
+            <button class="button primary" onclick="window.print()">הדפסת הטבלה</button>
+            <button class="button secondary" onclick="alert('הטבלה נשמרה')">שמירת הטבלה</button>
+        </div>
+        
+        <div class="footer">
+            <p>טכנודע - פארק היורה | תאריך: 20/04/2025</p>
+        </div>
+    </div>
+
+    <script>
+        // פונקציה להדגשת שורות בטבלה
+        document.addEventListener('DOMContentLoaded', function() {
+            const tables = document.querySelectorAll('.pricing-table');
+            
+            tables.forEach(table => {
+                const rows = table.querySelectorAll('tbody tr');
+                
+                rows.forEach(row => {
+                    row.addEventListener('click', function() {
+                        // מסיר הדגשה מכל השורות
+                        rows.forEach(r => r.classList.remove('highlight'));
+                        
+                        // מדגיש את השורה הנבחרת
+                        if (!this.classList.contains('total-row')) {
+                            this.classList.add('highlight');
+                        }
+                    });
+                });
+            });
+        });
+
+        // פונקציה להצגת תמונה מוגדלת
+        function openImageModal(imageSrc) {
+            // יצירת אלמנט המודל
+            const modal = document.createElement('div');
+            modal.style.position = 'fixed';
+            modal.style.top = '0';
+            modal.style.left = '0';
+            modal.style.width = '100%';
+            modal.style.height = '100%';
+            modal.style.backgroundColor = 'rgba(0,0,0,0.9)';
+            modal.style.display = 'flex';
+            modal.style.alignItems = 'center';
+            modal.style.justifyContent = 'center';
+            modal.style.zIndex = '1000';
+            modal.style.cursor = 'pointer';
+            
+            // יצירת התמונה המוגדלת
+            const modalImage = document.createElement('img');
+            modalImage.src = imageSrc;
+            modalImage.style.maxWidth = '90%';
+            modalImage.style.maxHeight = '90%';
+            modalImage.style.boxShadow = '0 0 20px rgba(255,255,255,0.2)';
+            modalImage.style.borderRadius = '4px';
+            
+            // הוספת כפתור סגירה
+            const closeButton = document.createElement('span');
+            closeButton.innerHTML = '&times;';
+            closeButton.style.position = 'absolute';
+            closeButton.style.top = '20px';
+            closeButton.style.right = '30px';
+            closeButton.style.color = 'white';
+            closeButton.style.fontSize = '40px';
+            closeButton.style.fontWeight = 'bold';
+            closeButton.style.cursor = 'pointer';
+            
+            // סגירת המודל בלחיצה על הכפתור או בלחיצה בכל מקום
+            closeButton.onclick = function() {
+                document.body.removeChild(modal);
+            };
+            
+            modal.onclick = function() {
+                document.body.removeChild(modal);
+            };
+            
+            // הוספת האלמנטים למודל ולמסמך
+            modal.appendChild(modalImage);
+            modal.appendChild(closeButton);
+            document.body.appendChild(modal);
+        }
+    </script>
+</body>
+</html>

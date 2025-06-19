@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>השוואת ביצי דינוזאורים - ספקים עולמיים</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .section {
+            padding: 30px;
+        }
+
+        .section-title {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 12px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.95em;
+            border: none;
+            vertical-align: middle;
+        }
+
+        td {
+            padding: 15px 12px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+            vertical-align: middle;
+        }
+
+        tr:hover {
+            background-color: #f8f9ff;
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+
+        .supplier-name {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1.1em;
+        }
+
+        .platform {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-block;
+        }
+
+        .platform.china {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .platform.usa {
+            background: #3498db;
+            color: white;
+        }
+
+        .platform.europe {
+            background: #27ae60;
+            color: white;
+        }
+
+        .platform.alibaba {
+            background: #f39c12;
+            color: white;
+        }
+
+        /* תיקון יישור המחירים - זה החלק הקריטי */
+        .price {
+            font-weight: bold;
+            color: #27ae60;
+            font-size: 1.1em;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 8px 12px;
+            border-radius: 15px;
+            min-width: 80px;
+            margin: 0 auto;
+            text-align: center !important;
+            height: auto;
+            line-height: 1.2;
+        }
+
+        .price.expensive {
+            color: #e74c3c;
+            background: none;
+        }
+
+        .price.highlight {
+            background: linear-gradient(135deg, #00b894, #00cec9);
+            color: white;
+        }
+
+        /* תיקון נוסף לתאי מחיר */
+        td.price-cell {
+            display: table-cell !important;
+            vertical-align: middle !important;
+            text-align: center !important;
+            padding: 15px 12px !important;
+        }
+
+        .no-price {
+            color: #6c757d;
+            font-style: italic;
+            font-size: 0.95em;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
+            margin: 0 auto;
+        }
+
+        .link-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 0.9em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .link-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .product-image {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #ddd;
+        }
+
+        .product-image:hover {
+            transform: scale(1.1);
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .image-placeholder {
+            width: 80px;
+            height: 60px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            color: #6c757d;
+            border: 2px dashed #ddd;
+            margin: 0 auto;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .image-placeholder:hover {
+            background: linear-gradient(135deg, #e9ecef, #dee2e6);
+            border-color: #667eea;
+            transform: scale(1.05);
+        }
+
+        .lior-section {
+            background: linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%);
+            margin: 20px 0;
+            border-radius: 15px;
+            padding: 30px;
+            color: white;
+        }
+
+        .lior-section h2 {
+            text-align: center;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .lior-greeting {
+            text-align: center;
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .lior-table {
+            background: white;
+            color: #333;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .lior-table th {
+            background: linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%);
+        }
+
+        /* תיקון יישור עבור הטבלה של ליאור */
+        .lior-table .price {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
+            margin: 0 auto;
+        }
+
+        .comparison-highlight {
+            background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .savings {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #00b894;
+        }
+
+        .gallery {
+            margin-top: 30px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .image-placeholder-gallery {
+            font-size: 1.2em;
+            color: #666;
+            text-align: center;
+        }
+
+        /* Modal for enlarged images */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            animation: zoomIn 0.3s ease;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            color: #fff;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .close:hover {
+            color: #ccc;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes zoomIn {
+            from { transform: translate(-50%, -50%) scale(0.5); }
+            to { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            th, td {
+                padding: 10px 8px;
+                font-size: 0.9em;
+            }
+
+            .product-image, .image-placeholder {
+                width: 60px;
+                height: 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🦕 השוואת ביצי דינוזאורים 🥚</h1>
+            <p>ספקים עולמיים מובילים מול מחירים מקומיים</p>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">ספקים עולמיים - ביצי דינוזאור איכותיים</h2>
+            
+            <div class="table-container">
+                <table id="suppliersTable">
+                    <thead>
+                        <tr>
+                            <th>תמונה</th>
+                            <th>שם הספק</th>
+                            <th>פלטפורמה</th>
+                            <th>תיאור המוצר</th>
+                            <th>מידות</th>
+                            <th>טווח מחיר ($)</th>
+                            <th>סוג מוצר</th>
+                            <th>קישור ישיר</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <img src="dino1.png" alt="Gengu Dinosaur Egg" class="product-image" onclick="enlargeImage('dino1.png')" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="image-placeholder" style="display: none;" onclick="enlargeImage('dino1.png')">
+                                    תמונה 1
+                                </div>
+                            </td>
+                            <td class="supplier-name">Alibaba - Amusement Park Customizable Dino</td>
+                            <td><span class="platform alibaba">Alibaba</span></td>
+                            <td>דגם דינוזאור מותאם אישית לפארק שעשועים, פיברגלס איכותי</td>
+                            <td>מותאם אישית</td>
+                            <td class="price-cell"><span class="price expensive">$1,800</span></td>
+                            <td>פיברגלס מותאם</td>
+                            <td><a href="https://www.alibaba.com/product-detail/Amusement-Park-Customizable-Dino-Model-Fiberglass_1601460466736.html?spm=a2700.7724857.0.0.7b7e1f4eF19ntv" class="link-btn" target="_blank">צפה במוצר</a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="dino2.png" alt="Fiberglass Simulation Dinosaur Egg" class="product-image" onclick="enlargeImage('dino2.png')" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="image-placeholder" style="display: none;" onclick="enlargeImage('dino2.png')">
+                                    תמונה 2
+                                </div>
+                            </td>
+                            <td class="supplier-name">Alibaba - Fiberglass Simulation Dinosaur Egg</td>
+                            <td><span class="platform alibaba">Alibaba</span></td>
+                            <td>ביצת דינוזאור סימולציה מפיברגלס לפארק שעשועים</td>
+                            <td>מותאם אישית</td>
+                            <td class="price-cell"><span class="price expensive">$1,100</span></td>
+                            <td>סימולציה פיברגלס</td>
+                            <td><a href="https://www.alibaba.com/product-detail/Amusement-Park-Fiberglass-Simulation-Dinosaur-Egg_60547599280.html?spm=a2700.7724857.0.0.7b7e1f4eF19ntv" class="link-btn" target="_blank">צפה במוצר</a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="dino3.png" alt="Gengu Fiberglass Dinosaur Eggs" class="product-image" onclick="enlargeImage('dino3.png')" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="image-placeholder" style="display: none;" onclick="enlargeImage('dino3.png')">
+                                    תמונה 3
+                                </div>
+                            </td>
+                            <td class="supplier-name">Gengu Dinosaurs Technology</td>
+                            <td><span class="platform china">סין</span></td>
+                            <td>ביצי דינוזאור פיברגלס איכותיות, עמידות למזג אוויר</td>
+                            <td>מותאם אישית</td>
+                            <td class="price-cell"><span class="no-price">אין מחיר</span></td>
+                            <td>פיברגלס מוזיאוני</td>
+                            <td><a href="https://www.gengutech.com/fiberglass-dinosaur-eggs/179.html" class="link-btn" target="_blank">צפה במוצר</a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="dino4.png" alt="KaWah Realistic Dino Egg" class="product-image" onclick="enlargeImage('dino4.png')" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="image-placeholder" style="display: none;" onclick="enlargeImage('dino4.png')">
+                                    תמונה 4
+                                </div>
+                            </td>
+                            <td class="supplier-name">KaWah Handicrafts - Realistic Dino Egg</td>
+                            <td><span class="platform china">סין</span></td>
+                            <td>ביצת דינוזאור אנימטרונית ריאליסטית למכירה</td>
+                            <td>מותאם אישית</td>
+                            <td class="price-cell"><span class="no-price">אין מחיר</span></td>
+                            <td>אנימטרוני ריאליסטי</td>
+                            <td><a href="https://www.kawahdinosaur.com/buy-realistic-dino-egg-animatronic-dinosaur-egg-for-sale-product/" class="link-btn" target="_blank">צפה במוצר</a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="dino5.png" alt="Indoor Playground Shaking Ride" class="product-image" onclick="enlargeImage('dino5.png')" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="image-placeholder" style="display: none;" onclick="enlargeImage('dino5.png')">
+                                    תמונה 5
+                                </div>
+                            </td>
+                            <td class="supplier-name">Alibaba - Indoor Playground Shaking Ride</td>
+                            <td><span class="platform alibaba">Alibaba</span></td>
+                            <td>רכיבת ביצת דינוזאור רועדת למגרש משחקים פנימי</td>
+                            <td>מותאם אישית</td>
+                            <td class="price-cell"><span class="price expensive">$1,600</span></td>
+                            <td>רכיבה אינטראקטיבית</td>
+                            <td><a href="https://www.alibaba.com/product-detail/Indoor-Playground-Amusement-Park-Ride-Shaking_1600880103308.html?spm=a2700.7724857.0.0.7b7e1f4eRo53q9" class="link-btn" target="_blank">צפה במוצר</a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="dino6.png" alt="Large Fiberglass Easter Eggs" class="product-image" onclick="enlargeImage('dino6.png')" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="image-placeholder" style="display: none;" onclick="enlargeImage('dino6.png')">
+                                    תמונה 6
+                                </div>
+                            </td>
+                            <td class="supplier-name">Alibaba - Large Fiberglass Easter Eggs</td>
+                            <td><span class="platform alibaba">Alibaba</span></td>
+                            <td>ביצי פסחא גדולות מפיברגלס דינו ביג</td>
+                            <td>מותאם אישית</td>
+                            <td class="price-cell"><span class="price">$480</span></td>
+                            <td>ביצי ענק דקורטיביות</td>
+                            <td><a href="https://www.alibaba.com/product-detail/Large-Fiberglass-Easter-Eggs-Dino-Big_1601278134375.html?spm=a2700.7724857.0.0.7b7e1f4eRo53q9" class="link-btn" target="_blank">צפה במוצר</a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="dino7.png" alt="Small Size Fiberglass Hatching" class="product-image" onclick="enlargeImage('dino7.png')" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="image-placeholder" style="display: none;" onclick="enlargeImage('dino7.png')">
+                                    תמונה 7
+                                </div>
+                            </td>
+                            <td class="supplier-name">Alibaba - 2023 Small Fiberglass Hatching</td>
+                            <td><span class="platform alibaba">Alibaba</span></td>
+                            <td>דינוזאור בוקע מפיברגלס גודל קטן 2023</td>
+                            <td>מותאם אישית</td>
+                            <td class="price-cell"><span class="price">$900</span></td>
+                            <td>דינוזאור בוקע קטן</td>
+                            <td><a href="https://www.alibaba.com/product-detail/2023-Small-size-fiberglass-dinosaur-hatching_1600721044086.html?spm=a2700.7724857.0.0.7b7e1f4eRo53q9" class="link-btn" target="_blank">צפה במוצר</a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="dino8.png" alt="Natureworks Giant Cracked Egg" class="product-image" onclick="enlargeImage('dino8.png')" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="image-placeholder" style="display: none;" onclick="enlargeImage('dino8.png')">
+                                    תמונה 8
+                                </div>
+                            </td>
+                            <td class="supplier-name">Natureworks Australia</td>
+                            <td><span class="platform europe">אוסטרליה</span></td>
+                            <td>ביצת דינוזאור ענקה סדוקה לתמי גולף מיני</td>
+                            <td>מותאם אישית</td>
+                            <td class="price-cell"><span class="no-price">אין מחיר</span></td>
+                            <td>פרמיום גולף מיני</td>
+                            <td><a href="https://natureworks.com.au/products/minigolf-theming/fantasy-themed-mini-golf-props/giant-cracked-dinosaur-egg/?srsltid=AfmBOoqk-Jq7yCT9PFIIpbv67G8HuVeNB4NdUmG0geEqiRZJlgK2RZRi#:~:text=Buy%20or%20hire%21%20Add%20this,too%20%E2%80%93%20contact%20us%20now" class="link-btn" target="_blank">צפה במוצר</a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="dino9.png" alt="My Dinosaurs Exhibition Eggs" class="product-image" onclick="enlargeImage('dino9.png')" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="image-placeholder" style="display: none;" onclick="enlargeImage('dino9.png')">
+                                    תמונה 9
+                                </div>
+                            </td>
+                            <td class="supplier-name">My Dinosaurs - Traveling Exhibition</td>
+                            <td><span class="platform china">סין</span></td>
+                            <td>ביצי דינוזאור לתערוכות נוסעות ולצילום</td>
+                            <td>מותאם אישית</td>
+                            <td class="price-cell"><span class="price expensive">$3,520-4,000</span></td>
+                            <td>תערוכות מוזיאון</td>
+                            <td><a href="https://www.mydinosaurs.com/product/traveling-dinosaur-exhibition-attractions-dinosaur-eggs-for-photograph/" class="link-btn" target="_blank">צפה במוצר</a></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <img src="dino10.png" alt="My Dinosaurs Jurassic Park Decoration" class="product-image" onclick="enlargeImage('dino10.png')" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="image-placeholder" style="display: none;" onclick="enlargeImage('dino10.png')">
+                                    תמונה 10
+                                </div>
+                            </td>
+                            <td class="supplier-name">My Dinosaurs - Jurassic Park Decoration</td>
+                            <td><span class="platform china">סין</span></td>
+                            <td>ביצי דינוזאור לקישוט פארק יורה מפיברגלס</td>
+                            <td>מותאם אישית</td>
+                            <td class="price-cell"><span class="price expensive">$1,500-3,000</span></td>
+                            <td>קישוט פארק ענק</td>
+                            <td><a href="https://www.mydinosaurs.com/product/dinosaur-park-jurassic-decoration-fiberglass-dinosaur-eggs/" class="link-btn" target="_blank">צפה במוצר</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="comparison-highlight">
+                <h3>💰 השוואת מחירים</h3>
+                <p>הספקים הסיניים מציעים מגוון מחירים החל מ-<span class="savings">$480</span> ועד לפרמיום ברמה של $4,000</p>
+                <p>מחירי ביניים אטרקטיביים: $900-$1,800 עבור מוצרים איכותיים</p>
+            </div>
+        </div>
+
+        <div class="lior-section">
+            <h2>🇮🇱 ליאור זאדה - מחירון מקומי</h2>
+            <div class="lior-greeting">שלום וברכה,</div>
+            
+            <div class="table-container">
+                <table class="lior-table">
+                    <thead>
+                        <tr>
+                            <th>סוג המוצר</th>
+                            <th>מידות (ס"מ)</th>
+                            <th>מחיר ליחידה (₪)</th>
+                            <th>מחיר בדולר ($)</th>
+                            <th>הערות</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="supplier-name">ביצת דינוזאור רגילה</td>
+                            <td>גובה 38 × רוחב 30</td>
+                            <td class="price-cell"><span class="price expensive">650 ₪</span></td>
+                            <td class="price-cell"><span class="price expensive">~$175</span></td>
+                            <td>לא כולל מע"מ והובלה</td>
+                        </tr>
+                        <tr>
+                            <td class="supplier-name">ביצת דינוזאור גדולה</td>
+                            <td>גובה 100 × רוחב 80</td>
+                            <td class="price-cell"><span class="price expensive">3,800 ₪</span></td>
+                            <td class="price-cell"><span class="price expensive">~$1,027</span></td>
+                            <td>לא כולל מע"מ והובלה</td>
+                        </tr>
+                        <tr>
+                            <td class="supplier-name">דינוזאור בוקע מביצה</td>
+                            <td>גובה 90 × אורך 100</td>
+                            <td class="price-cell"><span class="price expensive">7,200 ₪</span></td>
+                            <td class="price-cell"><span class="price expensive">~$1,946</span></td>
+                            <td>לא כולל מע"מ והובלה</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <p style="text-align: center; margin-top: 20px; font-size: 1.1em;">
+                המחירים לא כוללים מע"מ והובלה.<br>
+                מצורף תמונות מטה.
+            </p>
+        </div>
+
+        <div class="section gallery">
+            <h2 class="section-title">גלריית תמונות - מוצרי ליאור זאדה</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="1.jpg" alt="ביצת דינוזאור רגילה - גובה 38 רוחב 30" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="image-placeholder-gallery" style="display: none;">
+                        <strong>תמונה 1</strong><br>
+                        1.png<br>
+                        <small>ביצת דינוזאור רגילה</small>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="2.jpg" alt="ביצת דינוזאור גדולה - גובה 100 רוחב 80" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="image-placeholder-gallery" style="display: none;">
+                        <strong>תמונה 2</strong><br>
+                        2.png<br>
+                        <small>ביצת דינוזאור גדולה</small>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="3.jpg" alt="דינוזאור בוקע מביצה - גובה 90 אורך 100" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="image-placeholder-gallery" style="display: none;">
+                        <strong>תמונה 3</strong><br>
+                        3.png<br>
+                        <small>דינוזאור בוקע</small>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="4.jpg" alt="זווית נוספת של המוצרים" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="image-placeholder-gallery" style="display: none;">
+                        <strong>תמונה 4</strong><br>
+                        4.png<br>
+                        <small>זווית נוספת</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for enlarged images -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+        // Animation for table rows
+        document.addEventListener('DOMContentLoaded', function() {
+            const rows = document.querySelectorAll('tbody tr');
+            rows.forEach((row, index) => {
+                row.style.opacity = '0';
+                row.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    row.style.transition = 'all 0.5s ease';
+                    row.style.opacity = '1';
+                    row.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+
+            // Gallery animation
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            galleryItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(30px)';
+                setTimeout(() => {
+                    item.style.transition = 'all 0.6s ease';
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, 1000 + (index * 150));
+            });
+
+            // Price comparison highlighting
+            function highlightSavings() {
+                const prices = document.querySelectorAll('.price:not(.expensive)');
+                prices.forEach(price => {
+                    const value = parseFloat(price.textContent.replace(/[$,]/g, ''));
+                    if (value < 1000) {
+                        price.classList.add('highlight');
+                    }
+                });
+            }
+
+            setTimeout(highlightSavings, 2000);
+
+            // Smooth scrolling for better UX
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+
+        // Interactive features
+        function showSavingsCalculator() {
+            const localPrice = 650; // שקלים
+            const dollarRate = 3.7;
+            const localPriceUSD = localPrice / dollarRate;
+            
+            document.querySelectorAll('.price:not(.expensive)').forEach(priceElement => {
+                const chinesePrice = parseFloat(priceElement.textContent.replace(/[$,]/g, ''));
+                if (chinesePrice > 0 && chinesePrice < 2000) {
+                    const savings = ((localPriceUSD - chinesePrice) / localPriceUSD * 100).toFixed(0);
+                    priceElement.title = `חיסכון של ${savings}% לעומת המחיר המקומי!`;
+                }
+            });
+        }
+
+        setTimeout(showSavingsCalculator, 3000);
+
+        // Image modal functionality
+        function enlargeImage(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.style.display = 'block';
+            modalImg.src = imageSrc;
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+        }
+
+        // Close modal when clicking outside the image
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Make enlargeImage function globally available
+        window.enlargeImage = enlargeImage;
+        window.closeModal = closeModal;
+    </script>
+</body>
+</html>
